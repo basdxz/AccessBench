@@ -13,13 +13,8 @@ import static com.ventooth.accessbench.TargetInstanceContainer.TARGET_INSTANCE;
 import static com.ventooth.accessbench.invoke.InvokeInstanceCache.INVOKE_INSTANCE_CACHE;
 import static com.ventooth.accessbench.invoke.InvokeStaticCache.*;
 
-@State(Scope.Benchmark)
-@Warmup(iterations = 1, time = 1)
-@Measurement(iterations = 1, time = 1)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Timeout(time = 120)
-@Fork(0)
 @NoArgsConstructor
+@State(Scope.Benchmark)
 public class InvokeBench {
     @Benchmark
     public void invokePublicStaticFinalNoCache(Blackhole bh) throws Throwable {

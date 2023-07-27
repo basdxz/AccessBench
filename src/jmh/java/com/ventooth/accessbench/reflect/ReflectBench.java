@@ -12,13 +12,8 @@ import static com.ventooth.accessbench.TargetInstanceContainer.*;
 import static com.ventooth.accessbench.reflect.ReflectInstanceCache.*;
 import static com.ventooth.accessbench.reflect.ReflectStaticCache.*;
 
-@State(Scope.Benchmark)
-@Warmup(iterations = 0, time = 5)
-@Measurement(iterations = 1, time = 1)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Timeout(time = 120)
-@Fork(0)
 @NoArgsConstructor
+@State(Scope.Benchmark)
 public class ReflectBench {
     @Benchmark
     public void reflectPublicStaticFinalNoCache(Blackhole bh) throws Throwable {

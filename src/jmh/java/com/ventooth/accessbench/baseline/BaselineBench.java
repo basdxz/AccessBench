@@ -8,13 +8,8 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.concurrent.TimeUnit;
 
-@State(Scope.Benchmark)
-@Warmup(iterations = 0, time = 5)
-@Measurement(iterations = 1, time = 1)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Timeout(time = 120)
-@Fork(0)
 @NoArgsConstructor
+@State(Scope.Benchmark)
 public class BaselineBench {
     @Benchmark
     public void baselinePublicStaticFinal(Blackhole bh) {

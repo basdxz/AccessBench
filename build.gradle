@@ -50,8 +50,10 @@ idea {
  * https://github.com/guozheng/jmh-tutorial/blob/master/README.md#jmh-command-line-options
  */
 jmh {
-    //warmupIterations = 20
-    //iterations = 50
-    //fork = 1
-    // etc..
+    warmupIterations = 5
+    warmup = '50ms'
+
+    iterations = 10
+    timeOnIteration = '50ms'
+    fork = 4
 }
