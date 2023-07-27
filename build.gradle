@@ -38,3 +38,20 @@ idea {
         downloadSources = true
     }
 }
+
+/**
+ * Values set here will overrule configurations defined by annotations in the benchmark classes
+ *
+ * More options can be found at:
+ * https://github.com/melix/jmh-gradle-plugin#configuration-options
+ *
+ * NOTE: These values will **NOT** apply if the benchmarks are launched using the IntelliJ IDEA plugin!
+ * See the JMH readme for commandline options when running through IntelliJ:
+ * https://github.com/guozheng/jmh-tutorial/blob/master/README.md#jmh-command-line-options
+ */
+jmh {
+    //warmupIterations = 20
+    //iterations = 50
+    //fork = 1
+    // etc..
+}
