@@ -5,16 +5,32 @@ import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 
-@UtilityClass
+
 public final class ReflectInstanceCache {
-    public static final Field REF_PUBLIC_FINAL_FIELD;
-    public static final Field REF_PRIVATE_FINAL_FIELD;
+    public static final ReflectInstanceCache REFLECT_INSTANCE_CACHE = new ReflectInstanceCache();
 
-    public static final Field REF_PUBLIC_FIELD;
-    public static final Field REF_PRIVATE_FIELD;
+    public final Field REF_PUBLIC_FINAL_STATIC_FIELD;
+    public final Field REF_PRIVATE_FINAL_STATIC_FIELD;
 
-    static {
+    public final Field REF_PUBLIC_STATIC_FIELD;
+    public final Field REF_PRIVATE_STATIC_FIELD;
+
+    public final Field REF_PUBLIC_FINAL_FIELD;
+    public final Field REF_PRIVATE_FINAL_FIELD;
+
+    public final Field REF_PUBLIC_FIELD;
+    public final Field REF_PRIVATE_FIELD;
+
+    private ReflectInstanceCache() {
         try {
+            REF_PUBLIC_FINAL_STATIC_FIELD = TargetClass.class.getDeclaredField("PUBLIC_FINAL_STATIC_FIELD");
+            REF_PRIVATE_FINAL_STATIC_FIELD = TargetClass.class.getDeclaredField("PRIVATE_FINAL_STATIC_FIELD");
+            REF_PRIVATE_FINAL_STATIC_FIELD.setAccessible(true);
+
+            REF_PUBLIC_STATIC_FIELD = TargetClass.class.getDeclaredField("PUBLIC_STATIC_FIELD");
+            REF_PRIVATE_STATIC_FIELD = TargetClass.class.getDeclaredField("PRIVATE_STATIC_FIELD");
+            REF_PRIVATE_STATIC_FIELD.setAccessible(true);
+
             REF_PUBLIC_FINAL_FIELD = TargetClass.class.getDeclaredField("PUBLIC_FINAL_FIELD");
             REF_PRIVATE_FINAL_FIELD = TargetClass.class.getDeclaredField("PRIVATE_FINAL_FIELD");
             REF_PRIVATE_FINAL_FIELD.setAccessible(true);

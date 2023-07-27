@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.concurrent.TimeUnit;
 
 import static com.ventooth.accessbench.TargetInstanceContainer.TARGET_INSTANCE;
-import static com.ventooth.accessbench.invoke.InvokeInstanceCache.*;
+import static com.ventooth.accessbench.invoke.InvokeInstanceCache.INVOKE_INSTANCE_CACHE;
 import static com.ventooth.accessbench.invoke.InvokeStaticCache.*;
 
 @State(Scope.Benchmark)
@@ -25,7 +25,7 @@ public class InvokeBench {
     public void invokePublicStaticFinalNoCache(Blackhole bh) throws Throwable {
         val field = TargetClass.class.getDeclaredField("PUBLIC_FINAL_STATIC_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact();
+        val value = (String) mh.invokeExact();
         bh.consume(value);
     }
 
@@ -34,7 +34,7 @@ public class InvokeBench {
         val field = TargetClass.class.getDeclaredField("PRIVATE_FINAL_STATIC_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact();
+        val value = (String) mh.invokeExact();
         bh.consume(value);
     }
 
@@ -42,7 +42,7 @@ public class InvokeBench {
     public void invokePublicStaticNoCache(Blackhole bh) throws Throwable {
         val field = TargetClass.class.getDeclaredField("PUBLIC_STATIC_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact();
+        val value = (String) mh.invokeExact();
         bh.consume(value);
     }
 
@@ -51,7 +51,7 @@ public class InvokeBench {
         val field = TargetClass.class.getDeclaredField("PRIVATE_STATIC_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact();
+        val value = (String) mh.invokeExact();
         bh.consume(value);
     }
 
@@ -59,7 +59,7 @@ public class InvokeBench {
     public void invokePublicFinalNoCache(Blackhole bh) throws Throwable {
         val field = TargetClass.class.getDeclaredField("PUBLIC_FINAL_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact(TARGET_INSTANCE);
+        val value = (String) mh.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
@@ -68,7 +68,7 @@ public class InvokeBench {
         val field = TargetClass.class.getDeclaredField("PRIVATE_FINAL_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact(TARGET_INSTANCE);
+        val value = (String) mh.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
@@ -76,7 +76,7 @@ public class InvokeBench {
     public void invokePublicNoCache(Blackhole bh) throws Throwable {
         val field = TargetClass.class.getDeclaredField("PUBLIC_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact(TARGET_INSTANCE);
+        val value = (String) mh.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
@@ -85,55 +85,103 @@ public class InvokeBench {
         val field = TargetClass.class.getDeclaredField("PRIVATE_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
-        val value = (String)mh.invokeExact(TARGET_INSTANCE);
+        val value = (String) mh.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokeStaticPublicFinalWithCache(Blackhole bh) throws Throwable {
+    public void invokeStaticPublicFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PUBLIC_FINAL_STATIC_FIELD.invokeExact();
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokeStaticPrivateFinalWithCache(Blackhole bh) throws Throwable {
+    public void invokeStaticPrivateFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PRIVATE_FINAL_STATIC_FIELD.invokeExact();
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokeStaticPublicWithCache(Blackhole bh) throws Throwable {
+    public void invokeStaticPublicWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PUBLIC_STATIC_FIELD.invokeExact();
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokeStaticPrivateWithCache(Blackhole bh) throws Throwable {
+    public void invokeStaticPrivateWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PRIVATE_STATIC_FIELD.invokeExact();
         bh.consume(value);
     }
-    
+
     @Benchmark
-    public void invokePublicFinalWithCache(Blackhole bh) throws Throwable {
+    public void invokePublicFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PUBLIC_FINAL_FIELD.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokePrivateFinalWithCache(Blackhole bh) throws Throwable {
+    public void invokePrivateFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PRIVATE_FINAL_FIELD.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokePublicWithCache(Blackhole bh) throws Throwable {
+    public void invokePublicWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PUBLIC_FIELD.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void invokePrivateWithCache(Blackhole bh) throws Throwable {
+    public void invokePrivateWithStaticCache(Blackhole bh) throws Throwable {
         val value = (String) INV_PRIVATE_FIELD.invokeExact(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokeStaticPublicFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PUBLIC_FINAL_STATIC_FIELD.invokeExact();
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokeStaticPrivateFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PRIVATE_FINAL_STATIC_FIELD.invokeExact();
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokeStaticPublicWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PUBLIC_STATIC_FIELD.invokeExact();
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokeStaticPrivateWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PRIVATE_STATIC_FIELD.invokeExact();
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokePublicFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PUBLIC_FINAL_FIELD.invokeExact(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokePrivateFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PRIVATE_FINAL_FIELD.invokeExact(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokePublicWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PUBLIC_FIELD.invokeExact(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void invokePrivateWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = (String) INVOKE_INSTANCE_CACHE.INV_PRIVATE_FIELD.invokeExact(TARGET_INSTANCE);
         bh.consume(value);
     }
 }

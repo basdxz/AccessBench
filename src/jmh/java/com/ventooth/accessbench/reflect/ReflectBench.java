@@ -81,50 +81,98 @@ public class ReflectBench {
     }
 
     @Benchmark
-    public void reflectPublicStaticFinalWithCache(Blackhole bh) throws Throwable {
+    public void reflectPublicStaticFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PUBLIC_FINAL_STATIC_FIELD.get(null);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPrivateStaticFinalWithCache(Blackhole bh) throws Throwable {
+    public void reflectPrivateStaticFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PRIVATE_FINAL_STATIC_FIELD.get(null);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPublicStaticWithCache(Blackhole bh) throws Throwable {
+    public void reflectPublicStaticWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PUBLIC_STATIC_FIELD.get(null);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPrivateStaticWithCache(Blackhole bh) throws Throwable {
+    public void reflectPrivateStaticWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PRIVATE_STATIC_FIELD.get(null);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPublicFinalWithCache(Blackhole bh) throws Throwable {
+    public void reflectPublicFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PUBLIC_FINAL_FIELD.get(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPrivateFinalWithCache(Blackhole bh) throws Throwable {
+    public void reflectPrivateFinalWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PRIVATE_FINAL_FIELD.get(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPublicWithCache(Blackhole bh) throws Throwable {
+    public void reflectPublicWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PUBLIC_FIELD.get(TARGET_INSTANCE);
         bh.consume(value);
     }
 
     @Benchmark
-    public void reflectPrivateWithCache(Blackhole bh) throws Throwable {
+    public void reflectPrivateWithStaticCache(Blackhole bh) throws Throwable {
         val value = REF_PRIVATE_FIELD.get(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPublicStaticFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PUBLIC_FINAL_STATIC_FIELD.get(null);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPrivateStaticFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PRIVATE_FINAL_STATIC_FIELD.get(null);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPublicStaticWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PUBLIC_STATIC_FIELD.get(null);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPrivateStaticWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PRIVATE_STATIC_FIELD.get(null);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPublicFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PUBLIC_FINAL_FIELD.get(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPrivateFinalWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PRIVATE_FINAL_FIELD.get(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPublicWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PUBLIC_FIELD.get(TARGET_INSTANCE);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void reflectPrivateWithInstanceCache(Blackhole bh) throws Throwable {
+        val value = REFLECT_INSTANCE_CACHE.REF_PRIVATE_FIELD.get(TARGET_INSTANCE);
         bh.consume(value);
     }
 }
