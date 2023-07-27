@@ -38,6 +38,7 @@ public final class InvokeInstanceCache {
             field.setAccessible(true);
             INV_PRIVATE_STATIC_FIELD = lk.unreflectGetter(field);
 
+            field =  TargetClass.class.getDeclaredField("PUBLIC_FINAL_FIELD");
             INV_PUBLIC_FINAL_FIELD = lk.unreflectGetter(field);
             field =  TargetClass.class.getDeclaredField("PRIVATE_FINAL_FIELD");
             field.setAccessible(true);
