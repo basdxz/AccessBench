@@ -25,14 +25,14 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void reflectionPublicFinal(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PUBLIC_FINAL_FIELD");
         val value = field.get(targetInstance);
         bh.consume(value);
     }
 
     @Benchmark
     public void reflectionPrivateFinal(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PRIVATE_FINAL_FIELD");
         field.setAccessible(true);
         val value = field.get(targetInstance);
         bh.consume(value);
@@ -40,14 +40,14 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void reflectionPublic(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PUBLIC_FIELD");
         val value = field.get(targetInstance);
         bh.consume(value);
     }
 
     @Benchmark
     public void reflectionPrivate(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PRIVATE_FIELD");
         field.setAccessible(true);
         val value = field.get(targetInstance);
         bh.consume(value);
@@ -55,7 +55,7 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void methodHandlePublicFinal(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PUBLIC_FINAL_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
         val value = (String)mh.invokeExact(targetInstance);
         bh.consume(value);
@@ -63,7 +63,7 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void methodHandlePrivateFinal(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PRIVATE_FINAL_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
         val value = (String)mh.invokeExact(targetInstance);
@@ -72,7 +72,7 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void methodHandlePublic(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PUBLIC_FIELD");
         val mh = MethodHandles.lookup().unreflectGetter(field);
         val value = (String)mh.invokeExact(targetInstance);
         bh.consume(value);
@@ -80,7 +80,7 @@ public class InstanceNoCacheBenchmark {
 
     @Benchmark
     public void methodHandlePrivate(Blackhole bh) throws Throwable {
-        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val field = TargetClass.class.getDeclaredField("PRIVATE_FIELD");
         field.setAccessible(true);
         val mh = MethodHandles.lookup().unreflectGetter(field);
         val value = (String)mh.invokeExact(targetInstance);
