@@ -1,4 +1,4 @@
-package com.ventooth.reflectionmethodhandlebenchmark;
+package com.ventooth.accessbench;
 
 import java.lang.reflect.Field;
 
