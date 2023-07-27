@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id "me.champeau.jmh" version "0.7.1"
+}
+
+group = "com.ventooth"
+version = "SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+dependencies {
+    // Lombok
+    jmhCompileOnly("org.projectlombok:lombok:1.18.28")
+    jmhAnnotationProcessor("org.projectlombok:lombok:1.18.28")
+
+    // Java Micro Benchmark Harness
+    jmhImplementation("org.openjdk.jmh:jmh-core:1.36")
+    jmhAnnotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.36")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
