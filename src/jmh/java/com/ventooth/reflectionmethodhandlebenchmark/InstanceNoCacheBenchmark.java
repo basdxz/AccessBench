@@ -5,12 +5,13 @@ import lombok.val;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
+import java.lang.invoke.MethodHandles;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 @Warmup(iterations = 0, time = 5)
-@Measurement(iterations = 1, time = 500, timeUnit = TimeUnit.MILLISECONDS)
-@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@Measurement(iterations = 1, time = 1)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Timeout(time = 120)
 @Fork(0)
 @NoArgsConstructor
@@ -49,6 +50,40 @@ public class InstanceNoCacheBenchmark {
         val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
         field.setAccessible(true);
         val value = field.get(targetInstance);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void methodHandlePublicFinal(Blackhole bh) throws Throwable {
+        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val mh = MethodHandles.lookup().unreflectGetter(field);
+        val value = (String)mh.invokeExact(targetInstance);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void methodHandlePrivateFinal(Blackhole bh) throws Throwable {
+        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        field.setAccessible(true);
+        val mh = MethodHandles.lookup().unreflectGetter(field);
+        val value = (String)mh.invokeExact(targetInstance);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void methodHandlePublic(Blackhole bh) throws Throwable {
+        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        val mh = MethodHandles.lookup().unreflectGetter(field);
+        val value = (String)mh.invokeExact(targetInstance);
+        bh.consume(value);
+    }
+
+    @Benchmark
+    public void methodHandlePrivate(Blackhole bh) throws Throwable {
+        val field = TargetClass.class.getField("PUBLIC_FINAL_FIELD");
+        field.setAccessible(true);
+        val mh = MethodHandles.lookup().unreflectGetter(field);
+        val value = (String)mh.invokeExact(targetInstance);
         bh.consume(value);
     }
 }
