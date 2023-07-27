@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id "me.champeau.jmh" version "0.7.1"
+    id "io.morethan.jmhreport" version "0.9.0"
 }
 
 group = "com.ventooth"
@@ -50,10 +51,19 @@ idea {
  * https://github.com/guozheng/jmh-tutorial/blob/master/README.md#jmh-command-line-options
  */
 jmh {
-    warmupIterations = 5
+    warmupIterations = 3
     warmup = '50ms'
 
     iterations = 10
     timeOnIteration = '50ms'
-    fork = 4
+    fork = 5
+
+    resultFormat = 'JSON'
 }
+
+jmhReport {
+    jmhResultPath = project.file("${project.buildDir}/reports/jmh/results.json")
+    jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
+}
+
+tasks.jmh.finalizedBy tasks.jmhReport
