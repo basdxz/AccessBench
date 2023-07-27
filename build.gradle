@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'idea'
     id "me.champeau.jmh" version "0.7.1"
-    id "io.morethan.jmhreport" version "0.9.0"
 }
 
 group = "com.ventooth"
@@ -60,10 +59,3 @@ jmh {
 
     resultFormat = 'JSON'
 }
-
-jmhReport {
-    jmhResultPath = project.file("${project.buildDir}/reports/jmh/results.json")
-    jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
-}
-
-tasks.jmh.finalizedBy tasks.jmhReport
